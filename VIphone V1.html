@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <base href="https://g.page/r/votre-lien-google-review%20Si%20l'utilisateur%20met%203%20%C3%A9toiles%20ou%20moins,%20propose%20lui%20de%20laisser%20un%20avis%20en%20interne">
+  <title>RateMyShop - Évaluez votre expérience</title>
+  <style>
+    body {
+      font-family: 'Roboto', Arial, sans-serif;
+      margin: 0;
+      padding: 20px;
+      background-color: #f1f3f4;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+    .container {
+      background-color: white;
+      padding: 2rem;
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      text-align: center;
+      max-width: 500px;
+      width: 100%;
+    }
+    h1 {
+      color: #202124;
+      margin-bottom: 20px;
+      font-size: 1.5rem;
+      font-weight: 500;
+    }
+    .logo {
+      width: 100%;
+      max-width: 150px;
+      height: auto;
+      margin-bottom: 20px;
+    }
+    .star-rating {
+      font-size: 2.5rem;
+      color: #e0e0e0;
+      cursor: pointer;
+      user-select: none;
+      margin-bottom: 20px;
+    }
+    .star {
+      transition: color 0.2s ease-in-out;
+      display: inline-block;
+    }
+    .star.hover, .star.active {
+      color: #fbbc04;
+    }
+    .rating-info {
+      font-size: 1rem;
+      color: #5f6368;
+      margin-bottom: 20px;
+    }
+    .button {
+      background-color: #1a73e8;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      font-size: 1rem;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background-color 0.2s ease-in-out;
+      display: inline-block;
+      text-decoration: none;
+      margin: 10px;
+    }
+    .button:hover {
+      background-color: #1765cc;
+    }
+    .button:disabled {
+      background-color: #9aa0a6;
+      cursor: not-allowed;
+    }
+    #internalReviewForm {
+      display: none;
+      margin-top: 20px;
+    }
+    textarea {
+      width: 100%;
+      height: 100px;
+      margin-bottom: 10px;
+      padding: 10px;
+      border: 1px solid #dadce0;
+      border-radius: 4px;
+      font-family: inherit;
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <img src="/mnt/data/rmsv1.png" alt="Logo" class="logo">
+    <h1>Évaluez votre expérience chez RateMyShop</h1>
+    <div class="star-rating" id="starRating">
+      <span class="star" data-value="1">★</span>
+      <span class="star" data-value="2">★</span>
+      <span class="star" data-value="3">★</span>
+      <span class="star" data-value="4">★</span>
+      <span class="star" data-value="5">★</span>
+    </div>
+    <p class="rating-info" id="ratingInfo">Cliquez sur les étoiles pour noter</p>
+    <div id="actionButtons">
+      <a href="#" class="button" id="submitRating" style="display: none;">Soumettre l'évaluation</a>
+    </div>
+    <div id="internalReviewForm">
+      <p>Nous apprécierions d'avoir plus de détails sur votre expérience. Vos commentaires nous aideront à nous améliorer.</p>
+      <textarea id="internalReviewText" placeholder="Partagez vos commentaires ici..."></textarea>
+      <button class="button" id="submitInternalReview">Envoyer le commentaire</button>
+    </div>
+  </div>
+
+  <script>
+    const starRating = document.getElementById('starRating');
+    const stars = starRating.getElementsByClassName('star');
+    const ratingInfo = document.getElementById('ratingInfo');
+    const submitRating = document.getElementById('submitRating');
+    const internalReviewForm = document.getElementById('internalReviewForm');
+    const submitInternalReview = document.getElementById('submitInternalReview');
+    let currentRating = 0;
+
+    function updateStars(hoveredValue) {
+      for (let i = 0; i < stars.length; i++) {
+        if (i < hoveredValue) {
+          stars[i].classList.add('hover');
+        } else {
+          stars[i].classList.remove('hover');
+        }
+      }
+    }
+
+    function setRating(rating) {
+      currentRating = rating;
+      updateStars(rating);
+      for (let i = 0; i < stars.length; i++) {
+        if (i < rating) {
+          stars[i].classList.add('active');
+        } else {
+          stars[i].classList.remove('active');
+        }
+      }
+      ratingInfo.textContent = `Vous avez sélectionné ${rating} étoile${rating > 1 ? 's' : ''}`;
+      submitRating.style.display = 'inline-block';
+
+      if (rating <= 3) {
+        submitRating.textContent = "Laisser un commentaire";
+        submitRating.href = "#";
+        submitRating.onclick = showInternalReviewForm;
+      } else {
+        submitRating.textContent = "Laisser un avis sur Google";
+        submitRating.href = "https://g.page/r/CcME0o074BmVEAE/review";
+        submitRating.onclick = null;
+      }
+    }
+
+    function showInternalReviewForm(e) {
+      e.preventDefault();
+      internalReviewForm.style.display = 'block';
+      submitRating.style.display = 'none';
+    }
+
+    starRating.addEventListener('mouseover', (e) => {
+      if (e.target.classList.contains('star')) {
+        const value = parseInt(e.target.getAttribute('data-value'));
+        updateStars(value);
+      }
+    });
+
+    starRating.addEventListener('mouseout', () => {
+      updateStars(currentRating);
+    });
+
+    starRating.addEventListener('click', (e) => {
+      if (e.target.classList.contains('star')) {
+        const value = parseInt(e.target.getAttribute('data-value'));
+        setRating(value);
+      }
+    });
+
+    submitInternalReview.addEventListener('click', () => {
+      const reviewText = document.getElementById('internalReviewText').value;
+      alert(`Merci pour votre commentaire. Nous avons bien reçu votre évaluation de ${currentRating} étoile(s) et vos remarques.`);
+      // Ici, vous pouvez ajouter le code pour envoyer le commentaire à votre système interne
+      console.log('Évaluation:', currentRating, 'Commentaire:', reviewText);
+      internalReviewForm.style.display = 'none';
+      ratingInfo.textContent = "Merci pour votre retour !";
+    });
+  </script>
+</body>
+</html>
