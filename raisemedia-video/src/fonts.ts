@@ -1,24 +1,22 @@
-import { loadFont as loadFraunces } from "@remotion/google-fonts/Fraunces";
-import { loadFont as loadJetBrainsMono } from "@remotion/google-fonts/JetBrainsMono";
-import { loadFont as loadInstrumentSerif } from "@remotion/google-fonts/InstrumentSerif";
+import "@fontsource/geist-sans/300.css";
+import "@fontsource/geist-sans/400.css";
+import "@fontsource/geist-sans/500.css";
+import "@fontsource/geist-sans/600.css";
+import "@fontsource/geist-sans/700.css";
+import "@fontsource/geist-sans/800.css";
+import "@fontsource/geist-sans/900.css";
+import "@fontsource/geist-mono/400.css";
+import "@fontsource/geist-mono/500.css";
+import "@fontsource/geist-mono/600.css";
 
-const { fontFamily: frauncesFamily } = loadFraunces("normal", {
-  weights: ["300", "400", "600", "700", "900"],
-  subsets: ["latin"],
-});
+const sans = '"Geist Sans", -apple-system, BlinkMacSystemFont, sans-serif';
+const mono = '"Geist Mono", "SF Mono", ui-monospace, Menlo, monospace';
 
-const { fontFamily: monoFamily } = loadJetBrainsMono("normal", {
-  weights: ["300", "400", "500", "700"],
-  subsets: ["latin"],
-});
-
-const { fontFamily: instrumentFamily } = loadInstrumentSerif("normal", {
-  weights: ["400"],
-  subsets: ["latin"],
-});
-
+// Backward-compatible aliases for scenes still using the previous keys.
+// Will be unified to `sans` / `mono` in the upcoming script v2 rewrite.
 export const fonts = {
-  display: frauncesFamily,
-  serif: instrumentFamily,
-  mono: monoFamily,
+  sans,
+  mono,
+  display: sans,
+  serif: sans,
 };
