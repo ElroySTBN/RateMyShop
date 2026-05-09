@@ -1,6 +1,7 @@
 import { AbsoluteFill, interpolate, useCurrentFrame } from "remotion";
 import { fonts } from "../fonts";
 import { easings } from "../lib/easings";
+import { useLocal } from "../lib/useLocal";
 import { F } from "../theme";
 import { colors } from "../theme";
 import { AppointmentCard } from "../ui/AppointmentCard";
@@ -14,14 +15,6 @@ import { Timeline } from "../ui/Timeline";
 import { Vignette } from "../ui/Vignette";
 
 type FrameProps = { frame: number; from: number; dur: number };
-
-const useLocal = (frame: number, from: number, dur: number) => {
-  const local = frame - from;
-  const visible = local >= -8 && local <= dur + 8;
-  const fadeIn = interpolate(local, [0, 10], [0, 1], { easing: easings.enter, extrapolateLeft: "clamp", extrapolateRight: "clamp" });
-  const fadeOut = interpolate(local, [dur - 8, dur], [1, 0], { easing: easings.exit, extrapolateLeft: "clamp", extrapolateRight: "clamp" });
-  return { local, visible, opacity: fadeIn * fadeOut };
-};
 
 const Caption: React.FC<{ text: string; opacity?: number; small?: boolean; bottom?: number }> = ({
   text,
