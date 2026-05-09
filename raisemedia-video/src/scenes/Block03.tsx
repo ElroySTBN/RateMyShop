@@ -322,28 +322,30 @@ const F45: React.FC<FrameProps> = ({ frame, from, dur }) => {
   );
 };
 
-// F46 — logomark seul
+// F46 — logomark hero reveal
 const F46: React.FC<FrameProps> = ({ frame, from, dur }) => {
   const { visible, opacity, local } = useLocal(frame, from, dur);
   if (!visible) return null;
-  const draw = interpolate(local, [0, 22], [0, 1], { easing: easings.mask, extrapolateLeft: "clamp", extrapolateRight: "clamp" });
+  const reveal = interpolate(local, [0, 22], [0, 1], { easing: easings.enter, extrapolateLeft: "clamp", extrapolateRight: "clamp" });
+  const scale = interpolate(local, [0, 30], [0.84, 1], { easing: easings.enter, extrapolateLeft: "clamp", extrapolateRight: "clamp" });
   const glow = interpolate(local, [10, 30], [0.4, 1], { easing: easings.enter, extrapolateLeft: "clamp", extrapolateRight: "clamp" });
   return (
     <AbsoluteFill style={{ alignItems: "center", justifyContent: "center", opacity }}>
-      <RaiseLogomark size={300} draw={draw} glow={glow} />
+      <RaiseLogomark width={680} opacity={reveal} scale={scale} glow={glow} />
     </AbsoluteFill>
   );
 };
 
-// F47 — tagline
+// F47 — tagline (full lockup small + 2 lines)
 const F47: React.FC<FrameProps> = ({ frame, from, dur }) => {
   const { visible, opacity, local } = useLocal(frame, from, dur);
   if (!visible) return null;
-  const t1 = interpolate(local, [0, 18], [0, 1], { easing: easings.enter, extrapolateLeft: "clamp", extrapolateRight: "clamp" });
-  const t2 = interpolate(local, [12, 30], [0, 1], { easing: easings.enter, extrapolateLeft: "clamp", extrapolateRight: "clamp" });
+  const logoOpacity = interpolate(local, [0, 14], [0, 1], { easing: easings.enter, extrapolateLeft: "clamp", extrapolateRight: "clamp" });
+  const t1 = interpolate(local, [12, 32], [0, 1], { easing: easings.enter, extrapolateLeft: "clamp", extrapolateRight: "clamp" });
+  const t2 = interpolate(local, [30, 52], [0, 1], { easing: easings.enter, extrapolateLeft: "clamp", extrapolateRight: "clamp" });
   return (
     <AbsoluteFill style={{ alignItems: "center", justifyContent: "center", opacity, padding: "0 80px", textAlign: "center" }}>
-      <RaiseLogomark size={150} draw={1} glow={0.6} />
+      <RaiseLogomark width={420} opacity={logoOpacity} glow={0.6} />
       <div style={{ marginTop: 60 }}>
         <div
           style={{
@@ -353,7 +355,7 @@ const F47: React.FC<FrameProps> = ({ frame, from, dur }) => {
             letterSpacing: -0.6,
             color: colors.white,
             opacity: t1,
-            transform: `translateY(${(1 - t1) * 8}px)`,
+            transform: `translateY(${(1 - t1) * 10}px)`,
             lineHeight: 1.25,
           }}
         >
@@ -368,7 +370,7 @@ const F47: React.FC<FrameProps> = ({ frame, from, dur }) => {
             letterSpacing: -0.6,
             color: colors.blue,
             opacity: t2,
-            transform: `translateY(${(1 - t2) * 8}px)`,
+            transform: `translateY(${(1 - t2) * 10}px)`,
             lineHeight: 1.25,
           }}
         >
@@ -379,15 +381,16 @@ const F47: React.FC<FrameProps> = ({ frame, from, dur }) => {
   );
 };
 
-// F48 — CTA pulse
+// F48 — CTA pulse (logo + CTA + URL)
 const F48: React.FC<FrameProps> = ({ frame, from, dur }) => {
   const { visible, opacity, local } = useLocal(frame, from, dur);
   if (!visible) return null;
-  const ctaAppear = interpolate(local, [0, 18], [0, 1], { easing: easings.enter, extrapolateLeft: "clamp", extrapolateRight: "clamp" });
+  const logoOpacity = interpolate(local, [0, 14], [0, 1], { easing: easings.enter, extrapolateLeft: "clamp", extrapolateRight: "clamp" });
+  const ctaAppear = interpolate(local, [12, 32], [0, 1], { easing: easings.enter, extrapolateLeft: "clamp", extrapolateRight: "clamp" });
   const pulse = (Math.sin(local / 5) * 0.5 + 0.5);
   return (
     <AbsoluteFill style={{ alignItems: "center", justifyContent: "center", opacity, padding: "0 60px" }}>
-      <RaiseLogomark size={130} draw={1} glow={0.5} />
+      <RaiseLogomark width={340} opacity={logoOpacity} glow={0.5} />
       <div style={{ marginTop: 40 }} />
       <div style={{ opacity: ctaAppear, transform: `translateY(${(1 - ctaAppear) * 10}px)` }}>
         <CTAButton text="Diagnostic digital gratuit — 48 h" pulse={pulse} width={780} />
