@@ -1,22 +1,23 @@
-import "@fontsource/geist-sans/300.css";
-import "@fontsource/geist-sans/400.css";
-import "@fontsource/geist-sans/500.css";
-import "@fontsource/geist-sans/600.css";
-import "@fontsource/geist-sans/700.css";
-import "@fontsource/geist-sans/800.css";
-import "@fontsource/geist-sans/900.css";
-import "@fontsource/geist-mono/400.css";
-import "@fontsource/geist-mono/500.css";
-import "@fontsource/geist-mono/600.css";
+import { loadFont as loadInter } from "@remotion/google-fonts/Inter";
+import { loadFont as loadJetBrainsMono } from "@remotion/google-fonts/JetBrainsMono";
 
-const sans = '"Geist Sans", -apple-system, BlinkMacSystemFont, sans-serif';
-const mono = '"Geist Mono", "SF Mono", ui-monospace, Menlo, monospace';
+const { fontFamily: interFamily } = loadInter("normal", {
+  weights: ["300", "400", "500", "600", "700", "800", "900"],
+  subsets: ["latin"],
+});
 
-// Backward-compatible aliases for scenes still using the previous keys.
-// Will be unified to `sans` / `mono` in the upcoming script v2 rewrite.
+const { fontFamily: jbMonoFamily } = loadJetBrainsMono("normal", {
+  weights: ["300", "400", "500", "700"],
+  subsets: ["latin"],
+});
+
+const sans = `${interFamily}, -apple-system, BlinkMacSystemFont, "SF Pro Display", sans-serif`;
+const mono = `${jbMonoFamily}, "SF Mono", ui-monospace, Menlo, monospace`;
+
 export const fonts = {
   sans,
   mono,
+  // Backward-compat for any leftover refs
   display: sans,
   serif: sans,
 };
