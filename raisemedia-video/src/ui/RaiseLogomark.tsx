@@ -27,7 +27,7 @@ export const RaiseLogomark: React.FC<Props> = ({
         height,
         opacity,
         transform: `scale(${scale})`,
-        filter: `drop-shadow(0 0 ${28 * glow}px ${colors.blueGlow}) drop-shadow(0 0 ${64 * glow}px ${colors.blueGlowSoft})`,
+        filter: `drop-shadow(0 0 ${44 * glow}px ${colors.blueGlow})`,
       }}
     >
       <Img

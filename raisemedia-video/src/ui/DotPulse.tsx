@@ -59,7 +59,7 @@ export const DotPulse: React.FC<Props> = ({
           height: size * 0.5,
           borderRadius: 999,
           background: colors.blue,
-          boxShadow: `0 0 ${24 * glow}px ${colors.blue}, 0 0 ${64 * glow}px ${colors.blueGlow}`,
+          boxShadow: `0 0 ${36 * glow}px ${colors.blueGlow}`,
         }}
       />
     </div>

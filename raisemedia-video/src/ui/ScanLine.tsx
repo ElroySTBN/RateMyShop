@@ -27,7 +27,7 @@ export const ScanLine: React.FC<Props> = ({ progress, width, height }) => {
           width,
           height: 2,
           background: colors.blue,
-          boxShadow: `0 0 24px ${colors.blueGlowStrong}, 0 0 48px ${colors.blueGlow}`,
+          boxShadow: `0 0 36px ${colors.blueGlow}`,
         }}
       />
       {/* faint trail */}

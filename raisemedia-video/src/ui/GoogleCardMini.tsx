@@ -137,7 +137,7 @@ export const GoogleCardMini: React.FC<Props> = ({
             alignItems: "center",
             justifyContent: "center",
             flexShrink: 0,
-            boxShadow: `0 0 ${24 + callGlow * 56}px ${colors.blueGlowStrong}, 0 0 ${48 + callGlow * 80}px ${colors.blueGlow}`,
+            boxShadow: `0 0 ${48 + callGlow * 96}px ${colors.blueGlow}`,
             transform: `scale(${1 + callGlow * 0.06})`,
           }}
         >

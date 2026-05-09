@@ -318,8 +318,8 @@ const F15: React.FC<FrameProps> = ({ frame, from, dur }) => {
   const dissolve = interpolate(local, [0, dur], [0, 1], { easing: easings.editorial, extrapolateLeft: "clamp", extrapolateRight: "clamp" });
   const captionOpacity = interpolate(local, [10, 22], [0, 1], { easing: easings.enter, extrapolateLeft: "clamp", extrapolateRight: "clamp" });
 
-  // Generate ~80 particles deterministically from frame
-  const particles = Array.from({ length: 80 }).map((_, i) => {
+  // ~24 particles, deterministic from index. Reduced from 80 for Studio FPS.
+  const particles = Array.from({ length: 24 }).map((_, i) => {
     const rand = (n: number) => ((Math.sin(i * 9.7 + n) + 1) / 2);
     const ox = (rand(1) - 0.5) * 800;
     const oy = (rand(2) - 0.5) * 600;
@@ -371,8 +371,8 @@ const F16: React.FC<FrameProps> = ({ frame, from, dur }) => {
   const rotation = local * 0.4;
   const pulse = (Math.sin(local / 18) * 0.5 + 0.5);
 
-  // Convergent particles (decaying inward)
-  const particles = Array.from({ length: 36 }).map((_, i) => {
+  // Convergent particles, reduced from 36 to 14 for Studio FPS.
+  const particles = Array.from({ length: 14 }).map((_, i) => {
     const rand = (n: number) => ((Math.sin(i * 11.3 + n) + 1) / 2);
     const angle = rand(1) * Math.PI * 2;
     const startR = 800 + rand(2) * 200;

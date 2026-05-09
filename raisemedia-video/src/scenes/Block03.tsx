@@ -169,7 +169,7 @@ const F35: React.FC<FrameProps> = ({ frame, from, dur }) => {
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
-            boxShadow: `0 0 ${40 + pulse * 40}px ${colors.blueGlowStrong}, 0 0 ${100 + pulse * 60}px ${colors.blueGlow}`,
+            boxShadow: `0 0 ${80 + pulse * 80}px ${colors.blueGlow}`,
             transform: `scale(${1 + pulse * 0.05})`,
           }}
         >

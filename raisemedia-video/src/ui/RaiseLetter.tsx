@@ -29,7 +29,7 @@ export const RaiseLetter: React.FC<Props> = ({
         opacity,
         textShadow: outlined
           ? "none"
-          : `0 0 ${30 * glow}px ${colors.blueGlow}, 0 0 ${80 * glow}px ${colors.blueGlowSoft}`,
+          : `0 0 ${40 * glow}px ${colors.blueGlow}`,
       }}
     >
       {letter}

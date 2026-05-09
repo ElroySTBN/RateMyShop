@@ -19,16 +19,15 @@ export const OrbCore: React.FC<Props> = ({ size = 280, pulse = 0, withGlyph = tr
         justifyContent: "center",
       }}
     >
-      {/* outer halo */}
+      {/* outer halo (no blur filter — uses radial-gradient softness instead) */}
       <div
         style={{
           position: "absolute",
-          width: size * 2,
-          height: size * 2,
+          width: size * 2.2,
+          height: size * 2.2,
           borderRadius: 999,
-          background: `radial-gradient(ellipse at center, ${colors.blueGlow}, transparent 60%)`,
+          background: `radial-gradient(circle at center, ${colors.blueGlowSoft} 0%, transparent 70%)`,
           opacity: haloOpacity,
-          filter: "blur(40px)",
         }}
       />
       {/* core orb */}
@@ -39,7 +38,7 @@ export const OrbCore: React.FC<Props> = ({ size = 280, pulse = 0, withGlyph = tr
           height: size,
           borderRadius: 999,
           background: `radial-gradient(circle at 35% 30%, #5DBDFA, ${colors.blue} 55%, ${colors.blueDeep})`,
-          boxShadow: `0 0 ${60 + pulse * 40}px ${colors.blueGlowStrong}, 0 0 ${140 + pulse * 80}px ${colors.blueGlow}`,
+          boxShadow: `0 0 ${100 + pulse * 80}px ${colors.blueGlow}`,
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
