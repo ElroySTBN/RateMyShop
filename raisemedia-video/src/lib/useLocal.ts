@@ -1,23 +1,24 @@
 import { interpolate } from "remotion";
 import { easings } from "./easings";
 
-// Computes per-frame opacity envelope with cross-fade-friendly windows.
-// Visibility window extends BEFORE frame.from and AFTER frame.from + dur,
-// so adjacent frames overlap visually for a natural cinematic dissolve.
+// Per-frame opacity envelope. Hard cut (no overlap) between adjacent frames
+// so visually similar consecutive scenes (e.g. RAISE letters) don't ghost
+// over each other. The visibility window keeps a small margin so the
+// component is mounted slightly before from and after dur, but opacity
+// strictly fades within [0, dur].
 export const useLocal = (frame: number, from: number, dur: number) => {
   const local = frame - from;
-  const fadeIn = Math.min(14, Math.max(8, Math.floor(dur * 0.22)));
-  const fadeOut = Math.min(14, Math.max(8, Math.floor(dur * 0.22)));
+  const fadeIn = Math.min(12, Math.max(6, Math.floor(dur * 0.18)));
+  const fadeOut = Math.min(12, Math.max(6, Math.floor(dur * 0.18)));
 
-  const visible = local >= -fadeIn && local <= dur + fadeOut;
+  const visible = local >= -2 && local <= dur + 2;
 
-  // Fades cross zero (negative range) to overlap with previous frame
-  const opIn = interpolate(local, [-fadeIn, fadeIn], [0, 1], {
+  const opIn = interpolate(local, [0, fadeIn], [0, 1], {
     easing: easings.enter,
     extrapolateLeft: "clamp",
     extrapolateRight: "clamp",
   });
-  const opOut = interpolate(local, [dur - fadeOut, dur + fadeOut], [1, 0], {
+  const opOut = interpolate(local, [dur - fadeOut, dur], [1, 0], {
     easing: easings.exit,
     extrapolateLeft: "clamp",
     extrapolateRight: "clamp",
